@@ -1,72 +1,51 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEURON</title>
+    <title>Document</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="https://raw.githubusercontent.com/PablinXD24/NEURON3/main/neuron%20logo%20branco.png" alt="Logo">
+            <img src="logo.png" alt="Logo">
         </div>
         <div class="profile-menu">
-            <div class="circle" id="user-circle"></div>
-            <div class="dropdown" id="user-dropdown">
-                <input type="file" id="upload-photo" style="display: none;">
-                <label for="upload-photo">Upload Photo</label>
-                <button id="login-button">Login</button>
-                <button id="signup-button">Sign Up</button>
-                <button id="logout-button">Logout</button>
+            <div id="user-circle" class="circle"></div>
+            <div id="user-dropdown" class="dropdown">
+                <label id="login-button">Login</label>
+                <label id="signup-button">Signup</label>
+                <label id="logout-button">Logout</label>
+                <input type="file" id="upload-photo">
             </div>
         </div>
     </header>
-
-    <button id="delete-mode-button">Modo Excluir</button>
-
     <div id="app">
-        <div class="sidebar">
-            <ul id="note-list"></ul>
+        <aside class="sidebar">
             <ul id="category-list">
-                <li class="category-item selected" data-category="green">Vida Pessoal</li>
-                <li class="category-item" data-category="blue">Trabalho</li>
-                <li class="category-item" data-category="red">Faculdade</li>
-                <li class="category-item" data-category="yellow">Culinária</li>
-                <li class="category-item" data-category="purple">Lazer</li>
+                <li class="category-item" data-category="green">Green</li>
+                <li class="category-item" data-category="blue">Blue</li>
+                <li class="category-item" data-category="red">Red</li>
+                <li class="category-item" data-category="yellow">Yellow</li>
+                <li class="category-item" data-category="purple">Purple</li>
             </ul>
-        </div>
-        <div id="note-container"></div>
+            <button id="delete-mode-button">Modo Excluir</button>
+        </aside>
+        <main id="note-container"></main>
     </div>
-
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" required>
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" required>
-                <button type="submit">Login</button>
-            </form>
+            <p>Login Form</p>
         </div>
     </div>
-
     <div id="signup-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Sign Up</h2>
-            <form id="signup-form">
-                <label for="signup-email">Email:</label>
-                <input type="email" id="signup-email" required>
-                <label for="signup-password">Password:</label>
-                <input type="password" id="signup-password" required>
-                <button type="submit">Sign Up</button>
-            </form>
+            <p>Signup Form</p>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
