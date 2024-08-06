@@ -1,5 +1,4 @@
 const noteContainer = document.getElementById('note-container');
-const noteList = document.getElementById('note-list');
 const userCircle = document.getElementById('user-circle');
 const userDropdown = document.getElementById('user-dropdown');
 const loginModal = document.getElementById('login-modal');
@@ -156,8 +155,8 @@ noteContainer.addEventListener('mouseup', () => {
 function createNoteAtPosition(x, y, category) {
     const note = document.createElement('div');
     note.classList.add('note');
-    note.style.top = `${y - noteContainer.offsetTop - 10}px`;
-    note.style.left = `${x - noteContainer.offsetLeft - 10}px`;
+    note.style.top = `${y - noteContainer.offsetTop - 20}px`;
+    note.style.left = `${x - noteContainer.offsetLeft - 20}px`;
     updateNoteColor(note, category);
 
     const textarea = document.createElement('textarea');
@@ -238,30 +237,49 @@ function checkAndConnectNotes() {
     connectors.forEach(connector => connector.parentNode.removeChild(connector));
     connectors = [];
 
+    // Coleta todas as notas e agrupa por cor
+    const notesByColor = {};
     const notes = Array.from(noteContainer.querySelectorAll('.note'));
-    const notesWithEpa = notes.filter(note => note.querySelector('textarea').value.includes('epa'));
-    
-    if (notesWithEpa.length >= 2) {
-        const firstNote = notesWithEpa[0];
-        const secondNote = notesWithEpa[1];
-        
-        const line = document.createElement('div');
-        line.classList.add('connector');
-        
-        const offsetX1 = firstNote.offsetLeft + firstNote.offsetWidth / 2;
-        const offsetY1 = firstNote.offsetTop + firstNote.offsetHeight / 2;
-        const offsetX2 = secondNote.offsetLeft + secondNote.offsetWidth / 2;
-        const offsetY2 = secondNote.offsetTop + secondNote.offsetHeight / 2;
-        
-        const angle = Math.atan2(offsetY2 - offsetY1, offsetX2 - offsetX1) * 180 / Math.PI;
-        const length = Math.sqrt((offsetX2 - offsetX1) ** 2 + (offsetY2 - offsetY1) ** 2);
-        
-        line.style.width = `${length}px`;
-        line.style.transform = `rotate(${angle}deg)`;
-        line.style.left = `${offsetX1}px`;
-        line.style.top = `${offsetY1}px`;
-        
-        noteContainer.appendChild(line);
-        connectors.push(line);
-    }
+
+    notes.forEach(note => {
+        const color = note.style.backgroundColor;
+        if (!notesByColor[color]) {
+            notesByColor[color] = [];
+        }
+        notesByColor[color].push(note);
+    });
+
+    // Cria linhas de conexão para notas da mesma cor
+    Object.keys(notesByColor).forEach(color => {
+        const colorNotes = notesByColor[color];
+        for (let i = 0; i < colorNotes.length - 1; i++) {
+            const note1 = colorNotes[i];
+            const note2 = colorNotes[i + 1];
+
+            const rect1 = note1.getBoundingClientRect();
+            const rect2 = note2.getBoundingClientRect();
+            const x1 = rect1.left + rect1.width / 2 - noteContainer.offsetLeft;
+            const y1 = rect1.top + rect1.height / 2 - noteContainer.offsetTop;
+            const x2 = rect2.left + rect2.width / 2 - noteContainer.offsetLeft;
+            const y2 = rect2.top + rect2.height / 2 - noteContainer.offsetTop;
+
+            const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+            const line = document.createElement('div');
+            line.classList.add('connector');
+            line.style.width = `${length}px`;
+            line.style.backgroundColor = color;
+            line.style.left = `${x1}px`;
+            line.style.top = `${y1}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.transformOrigin = '0 0'; // Garante que a rotação ocorra a partir do início da linha
+
+            noteContainer.appendChild(line);
+            connectors.push(line);
+        }
+    });
 }
+
+// Atualiza a posição das linhas a cada 100ms
+setInterval(checkAndConnectNotes, 100);
