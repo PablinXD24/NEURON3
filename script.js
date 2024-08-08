@@ -4,7 +4,8 @@ const userDropdown = document.getElementById('user-dropdown');
 const loginModal = document.getElementById('login-modal');
 const signupModal = document.getElementById('signup-modal');
 const deleteModeButton = document.getElementById('delete-mode-button');
-const categoryList = document.getElementById('category-list');
+const colorMenu = document.getElementById('color-menu');
+const colorBubbles = colorMenu.querySelectorAll('.color-bubble');
 
 let selectedNote = null;
 let notesByCategory = {}; // Armazena notas por categoria
@@ -59,7 +60,7 @@ document.getElementById('upload-photo').addEventListener('change', (event) => {
 // Toggle delete mode
 deleteModeButton.addEventListener('click', () => {
     deleteMode = !deleteMode;
-    deleteModeButton.style.backgroundColor = deleteMode ? '#39ff14' : '#ff0000'; // Verde quando ligado, vermelho quando desligado
+    deleteModeButton.style.backgroundColor = deleteMode ? '#39ff14' : '#ff6347'; // Verde quando ligado, vermelho quando desligado
     deleteModeButton.textContent = deleteMode ? 'Modo Excluir: Ativo' : 'Modo Excluir';
 });
 
@@ -67,31 +68,40 @@ deleteModeButton.addEventListener('click', () => {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         deleteMode = false;
-        deleteModeButton.style.backgroundColor = '#ff0000';
+        deleteModeButton.style.backgroundColor = '#ff6347';
         deleteModeButton.textContent = 'Modo Excluir';
     }
 });
 
 // Select category
-categoryList.addEventListener('click', (event) => {
-    if (event.target.classList.contains('category-item')) {
-        selectedCategory = event.target.dataset.category;
+colorBubbles.forEach(bubble => {
+    bubble.addEventListener('click', () => {
+        selectedCategory = bubble.dataset.category;
         selectCategory(selectedCategory);
-    }
+    });
+
+    bubble.addEventListener('mouseover', () => {
+        bubble.style.boxShadow = `0 0 10px ${getCategoryColor(bubble.dataset.category)}`;
+    });
+
+    bubble.addEventListener('mouseout', () => {
+        if (bubble.dataset.category !== selectedCategory) {
+            bubble.style.boxShadow = 'none';
+        }
+    });
 });
 
 function selectCategory(category) {
-    // Remove seleção de todas as categorias
-    categoryList.querySelectorAll('.category-item').forEach(item => {
-        item.classList.remove('selected');
-        item.style.backgroundColor = ''; // Limpa qualquer cor de fundo definida
+    // Remove a seleção de todas as bolinhas
+    colorBubbles.forEach(bubble => {
+        bubble.classList.remove('selected');
+        bubble.style.boxShadow = 'none'; // Remove o efeito neon das bolinhas não selecionadas
     });
 
-    // Seleciona a categoria escolhida
-    const selectedCategoryElement = categoryList.querySelector(`[data-category="${category}"]`);
-    selectedCategoryElement.classList.add('selected');
-    const categoryColor = getCategoryColor(category);
-    selectedCategoryElement.style.backgroundColor = categoryColor;
+    // Seleciona a bolinha escolhida
+    const selectedBubble = colorMenu.querySelector(`[data-category="${category}"]`);
+    selectedBubble.classList.add('selected');
+    selectedBubble.style.boxShadow = `0 0 10px ${getCategoryColor(category)}`; // Aplica o efeito neon na bolinha selecionada
 
     // Atualiza a variável global de categoria selecionada
     selectedCategory = category;
@@ -105,17 +115,17 @@ function selectCategory(category) {
 function getCategoryColor(category) {
     switch (category) {
         case 'green':
-            return '#29FA10'; // Branco
+            return '#29FA10';
         case 'blue':
-            return '#37617A'; // Azul neon
+            return '#37617A';
         case 'red':
-            return '#f23839'; // Vermelho neon
+            return '#f23839';
         case 'yellow':
-            return '#f2ca50'; // Amarelo neon
+            return '#f2ca50';
         case 'purple':
-            return '#378c4b'; // Roxo neon
+            return '#378c4b';
         default:
-            return '#fff'; // Verde neon brilhoso (padrão)
+            return '#fff';
     }
 }
 
@@ -163,7 +173,7 @@ function createNoteAtPosition(x, y, category) {
     note.appendChild(textarea);
 
     note.addEventListener('mousedown', (e) => {
-        if (e.target === note) { // Garante que o mousedown não seja na textarea
+        if (e.target === note) {
             isDragging = true;
             dragNote = note;
             offsetX = e.clientX - note.offsetLeft;
@@ -281,5 +291,7 @@ function checkAndConnectNotes() {
     });
 }
 
-// Atualiza a posição das linhas a cada 100ms
-setInterval(checkAndConnectNotes, 100);
+// Atualiza a posição das linhas a cada 500ms
+setInterval(() => {
+    checkAndConnectNotes();
+}, 5);
