@@ -294,4 +294,4 @@ function checkAndConnectNotes() {
 // Atualiza a posição das linhas a cada 500ms
 setInterval(() => {
     checkAndConnectNotes();
-}, 5);
+}, 1);
