@@ -298,13 +298,9 @@ header {
         line-height: 40px; /* Alinha o texto verticalmente */
         position: absolute; /* Posiciona o botão ao lado do menu de perfil */
         top: 50%;
-        right: -10px; /* Ajuste conforme necessário */
+        right: 10px; /* Ajuste conforme necessário */
         transform: translateY(-50%); /* Alinha verticalmente */
     }
 
-    /* Ajuste no menu de perfil para acomodar o botão */
-    .profile-menu {
-        position: relative; /* Necessário para o posicionamento absoluto do botão */
-    }
-}
+
 
