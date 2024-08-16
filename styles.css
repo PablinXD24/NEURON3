@@ -196,16 +196,16 @@ header {
 
 #delete-mode-button {
     position: fixed;
-    top: 15px;
+    top: 10px;
     right: 100px;
     background-color: #ff6347;
     color: white;
     border: none;
-    border-radius: 50%; /* Faz o botão ser um círculo */
+    border-radius: 5%; /* Faz o botão ser um círculo */
     padding: 10px;
     cursor: pointer;
     z-index: 1000;
-    width: 40px; /* Tamanho do círculo */
+    width: 120px; /* Tamanho do círculo */
     height: 40px; /* Tamanho do círculo */
     display: flex;
     align-items: center;
@@ -276,13 +276,35 @@ header {
         width: 200px; /* Largura ajustada para a barra lateral em dispositivos móveis */
     }
 
+    /* Estilo geral do botão de modo excluir */
+#delete-mode-button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Estilo do botão de modo excluir como círculo em dispositivos móveis */
+@media (max-width: 768px) {
     #delete-mode-button {
-        position: absolute; /* Coloca o botão dentro da sidebar */
-        top: 20px; /* Ajuste a posição vertical conforme necessário */
-        right: 10px; /* Alinha o botão ao lado do perfil */
-        background-color: #ff6347;
-        border-radius: 50%; /* Botão circular */
-        width: 40px; /* Tamanho do círculo */
-        height: 40px; /* Tamanho do círculo */
+        border-radius: 50%; /* Torna o botão um círculo */
+        width: 40px;
+        height: 40px;
+        padding: 0; /* Remove o padding */
+        text-align: center;
+        line-height: 40px; /* Alinha o texto verticalmente */
+        position: absolute; /* Posiciona o botão ao lado do menu de perfil */
+        top: 50%;
+        right: 10px; /* Ajuste conforme necessário */
+        transform: translateY(-50%); /* Alinha verticalmente */
+    }
+
+    /* Ajuste no menu de perfil para acomodar o botão */
+    .profile-menu {
+        position: relative; /* Necessário para o posicionamento absoluto do botão */
     }
 }
+
