@@ -308,16 +308,7 @@ header {
         width: 100px; /* Reduzir ainda mais a largura da barra lateral */
     }
 
-    #delete-mode-button {
-        right: 5px; /* Ajustar posição do botão de modo de exclusão */
-    }
-
-    #color-menu {
-        bottom: 5px;
-        gap: 3px;
-    }
-}
-/* Estilo para desktop (padrão) */
+ /* Estilo para desktop (padrão) */
 #delete-mode-button {
     position: fixed;
     top: 15px;
