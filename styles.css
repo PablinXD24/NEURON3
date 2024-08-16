@@ -87,61 +87,8 @@ header {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-}
-
-.profile-menu {
-    display: flex;
-    align-items: center;
-}
-
-#delete-mode-button {
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    text-align: center;
-    line-height: 40px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 10px 3px #ff6347;
-}
-
-/* Estilo para o botão de modo excluir em dispositivos móveis */
-@media (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 60px; /* Ajuste conforme necessário */
-    }
-    
-    .profile-menu {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #delete-mode-button {
-        margin-top: 10px; /* Ajustar margem superior para espaçamento */
-        margin-left: 10px; /* Ajustar margem esquerda para espaçamento */
-    }
-
-    .logo img {
-        width: 80px; /* Reduzir o tamanho do logo */
-    }
-    
-    .dropdown {
-        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 120px; /* Reduzir largura do dropdown */
-    }
-
-    #note-container {
-        margin-left: 70px; /* Ajustar margem para evitar sobreposição */
-    }
+    align-items: flex-start;
+    gap: 10px;
 }
 
 #note-container {
@@ -149,8 +96,6 @@ header {
     position: relative;
     background-color: #111;
     cursor: pointer;
-    /* Remover a necessidade de ajustar a largura */
-    /* Não há necessidade de definir width explicitamente aqui */
 }
 
 .note {
@@ -216,7 +161,7 @@ header {
     position: absolute;
     height: 2px;
     z-index: 0;
-    transform-origin: 0 0; /* Important for correct rotation */
+    transform-origin: 0 0;
 }
 
 .modal {
@@ -249,6 +194,25 @@ header {
     cursor: pointer;
 }
 
+#delete-mode-button {
+    position: fixed;
+    top: 15px;
+    right: 100px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Faz o botão ser um círculo */
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px; /* Tamanho do círculo */
+    height: 40px; /* Tamanho do círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 #color-menu {
     position: fixed;
     bottom: 20px;
@@ -269,8 +233,8 @@ header {
 
 .color-bubble:hover,
 .color-bubble.selected {
-    box-shadow: 0 0 10px 3px #fff; /* Efeito neon */
-    transform: scale(1.1); /* Leve aumento do tamanho para efeito de destaque */
+    box-shadow: 0 0 10px 3px #fff;
+    transform: scale(1.1);
 }
 
 .color-bubble[data-category="green"] {
@@ -296,29 +260,29 @@ header {
 /* Media queries para dispositivos móveis */
 @media (max-width: 768px) {
     body {
-        font-size: 14px; /* Reduzir o tamanho da fonte para dispositivos móveis */
+        font-size: 14px;
     }
 
     .logo img {
-        width: 80px; /* Reduzir o tamanho do logo */
+        width: 80px;
     }
 
     .dropdown {
-        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 120px; /* Reduzir largura do dropdown */
+        top: 60px;
+        width: 120px;
     }
 
     .sidebar {
-        width: 60px; /* Ajustar largura da barra lateral para dispositivos móveis */
-    }
-
-    .profile-menu {
-        flex-direction: column;
-        align-items: flex-start;
+        width: 200px; /* Largura ajustada para a barra lateral em dispositivos móveis */
     }
 
     #delete-mode-button {
-        margin-top: 10px; /* Ajustar margem superior para espaçamento */
-        margin-left: 10px; /* Ajustar margem esquerda para espaçamento */
+        position: absolute; /* Coloca o botão dentro da sidebar */
+        top: 20px; /* Ajuste a posição vertical conforme necessário */
+        right: 10px; /* Alinha o botão ao lado do perfil */
+        background-color: #ff6347;
+        border-radius: 50%; /* Botão circular */
+        width: 40px; /* Tamanho do círculo */
+        height: 40px; /* Tamanho do círculo */
     }
 }
