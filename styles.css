@@ -276,31 +276,48 @@ header {
         width: 200px; /* Largura ajustada para a barra lateral em dispositivos móveis */
     }
 
-    /* Estilo geral do botão de modo excluir */
+ .profile-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 10px; /* Adiciona espaço entre os elementos */
+}
+
 #delete-mode-button {
     background-color: #ff6347;
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     z-index: 1000;
+    transition: background-color 0.3s;
 }
 
-/* Estilo do botão de modo excluir como círculo em dispositivos móveis */
+#delete-mode-button:hover {
+    background-color: #39ff14;
+}
+
+/* Media queries para dispositivos móveis */
 @media (max-width: 768px) {
-    #delete-mode-button {
-        border-radius: 50%; /* Torna o botão um círculo */
-        width: 40px;
-        height: 40px;
-        padding: 0; /* Remove o padding */
-        text-align: center;
-        line-height: 40px; /* Alinha o texto verticalmente */
-        position: absolute; /* Posiciona o botão ao lado do menu de perfil */
-        top: 50%;
-        right: 10px; /* Ajuste conforme necessário */
-        transform: translateY(-50%); /* Alinha verticalmente */
+    .logo img {
+        width: 80px;
     }
 
+    .dropdown {
+        top: 60px;
+        width: 120px;
+    }
 
+    .sidebar {
+        width: 150px;
+    }
 
+    #delete-mode-button {
+        display: block;
+    }
+}
