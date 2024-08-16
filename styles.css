@@ -79,14 +79,6 @@ header {
     overflow: hidden;
 }
 
-.sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: #222;
-    overflow-y: auto;
-    padding: 10px;
-}
-
 #note-container {
     flex: 1;
     position: relative;
@@ -250,6 +242,26 @@ header {
 }
 
 /* Media queries para dispositivos móveis */
+@media (max-width: 1024px) {
+    .logo img {
+        width: 90px; /* Reduzir o tamanho do logo em telas médias */
+    }
+
+    .dropdown {
+        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
+        width: 120px; /* Reduzir largura do dropdown */
+    }
+
+    #delete-mode-button {
+        right: 20px; /* Ajustar posição do botão de modo de exclusão */
+    }
+
+    #color-menu {
+        bottom: 10px;
+        gap: 8px;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 14px; /* Reduzir o tamanho da fonte para dispositivos móveis */
@@ -260,8 +272,8 @@ header {
     }
 
     .dropdown {
-        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 120px; /* Reduzir largura do dropdown */
+        top: 70px; /* Ajustar posição do dropdown para dispositivos móveis */
+        width: 100px; /* Reduzir largura do dropdown */
     }
 
     .sidebar {
@@ -269,6 +281,39 @@ header {
     }
 
     #delete-mode-button {
-        right: 20px; /* Ajustar posição do botão de modo de exclusão */
+        right: 10px; /* Ajustar posição do botão de modo de exclusão */
+    }
+
+    #color-menu {
+        bottom: 10px;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px; /* Reduzir ainda mais o tamanho da fonte para dispositivos muito pequenos */
+    }
+
+    .logo img {
+        width: 70px; /* Reduzir o tamanho do logo */
+    }
+
+    .dropdown {
+        top: 80px; /* Ajustar posição do dropdown para dispositivos muito pequenos */
+        width: 80px; /* Reduzir largura do dropdown */
+    }
+
+    .sidebar {
+        width: 100px; /* Reduzir ainda mais a largura da barra lateral */
+    }
+
+    #delete-mode-button {
+        right: 5px; /* Ajustar posição do botão de modo de exclusão */
+    }
+
+    #color-menu {
+        bottom: 5px;
+        gap: 3px;
     }
 }
