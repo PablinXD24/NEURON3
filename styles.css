@@ -92,6 +92,8 @@ header {
     position: relative;
     background-color: #111;
     cursor: pointer;
+    /* Remover a necessidade de ajustar a largura */
+    /* Não há necessidade de definir width explicitamente aqui */
 }
 
 .note {
