@@ -298,7 +298,7 @@ header {
         line-height: 40px; /* Alinha o texto verticalmente */
         position: absolute; /* Posiciona o botão ao lado do menu de perfil */
         top: 50%;
-        right: 10px; /* Ajuste conforme necessário */
+        right: -10px; /* Ajuste conforme necessário */
         transform: translateY(-50%); /* Alinha verticalmente */
     }
 
