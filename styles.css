@@ -79,6 +79,14 @@ header {
     overflow: hidden;
 }
 
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: #222;
+    overflow-y: auto;
+    padding: 10px;
+}
+
 #note-container {
     flex: 1;
     position: relative;
@@ -242,26 +250,6 @@ header {
 }
 
 /* Media queries para dispositivos móveis */
-@media (max-width: 1024px) {
-    .logo img {
-        width: 90px; /* Reduzir o tamanho do logo em telas médias */
-    }
-
-    .dropdown {
-        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 120px; /* Reduzir largura do dropdown */
-    }
-
-    #delete-mode-button {
-        right: 20px; /* Ajustar posição do botão de modo de exclusão */
-    }
-
-    #color-menu {
-        bottom: 10px;
-        gap: 8px;
-    }
-}
-
 @media (max-width: 768px) {
     body {
         font-size: 14px; /* Reduzir o tamanho da fonte para dispositivos móveis */
@@ -272,8 +260,8 @@ header {
     }
 
     .dropdown {
-        top: 70px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 100px; /* Reduzir largura do dropdown */
+        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
+        width: 120px; /* Reduzir largura do dropdown */
     }
 
     .sidebar {
@@ -281,69 +269,6 @@ header {
     }
 
     #delete-mode-button {
-        right: 10px; /* Ajustar posição do botão de modo de exclusão */
-    }
-
-    #color-menu {
-        bottom: 10px;
-        gap: 5px;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        font-size: 12px; /* Reduzir ainda mais o tamanho da fonte para dispositivos muito pequenos */
-    }
-
-    .logo img {
-        width: 70px; /* Reduzir o tamanho do logo */
-    }
-
-    .dropdown {
-        top: 80px; /* Ajustar posição do dropdown para dispositivos muito pequenos */
-        width: 80px; /* Reduzir largura do dropdown */
-    }
-
-    .sidebar {
-        width: 100px; /* Reduzir ainda mais a largura da barra lateral */
-    }
-
- /* Estilo para desktop (padrão) */
-#delete-mode-button {
-    position: fixed;
-    top: 15px;
-    right: 100px;
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-/* Estilo para dispositivos móveis */
-@media (max-width: 768px) {
-    #delete-mode-button {
-        position: absolute; /* Muda para posição absoluta em dispositivos móveis */
-        top: 10px; /* Ajuste conforme necessário */
-        right: 10px; /* Ajuste conforme necessário */
-        background-color: #ff6347;
-        color: white;
-        border: none;
-        border-radius: 50%; /* Faz o botão ser circular */
-        width: 40px; /* Ajuste o tamanho do botão circular */
-        height: 40px; /* Ajuste o tamanho do botão circular */
-        padding: 0; /* Remove o padding */
-        display: flex; /* Para centralizar o texto */
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 14px; /* Ajuste o tamanho do texto conforme necessário */
-    }
-
-    /* Ajuste o ícone ou texto dentro do botão circular se necessário */
-    #delete-mode-button::before {
-        content: "X"; /* Exemplo de texto ou ícone, ajuste conforme necessário */
+        right: 20px; /* Ajustar posição do botão de modo de exclusão */
     }
 }
