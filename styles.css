@@ -279,3 +279,54 @@ header {
         margin-left: 10px; /* Espaçamento ao lado do menu de perfil */
     }
 }
+.modal-content {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #39ff14;
+    position: relative;
+    width: 300px;
+    max-width: 90%;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-content form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+}
+
+.modal-content form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #39ff14;
+    color: #000;
+    cursor: pointer;
+}
+
+.modal-content form button:hover {
+    background-color: #32cc12;
+}
+
+.modal-content p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content p a {
+    color: #39ff14;
+    cursor: pointer;
+}
