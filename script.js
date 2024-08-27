@@ -295,3 +295,58 @@ function checkAndConnectNotes() {
 setInterval(() => {
     checkAndConnectNotes();
 }, 1);
+// Referências aos formulários
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const goToSignup = document.getElementById('go-to-signup');
+const goToLogin = document.getElementById('go-to-login');
+
+// Troca entre login e signup
+goToSignup.addEventListener('click', () => {
+  loginModal.style.display = 'none';
+  signupModal.style.display = 'flex';
+});
+
+goToLogin.addEventListener('click', () => {
+  signupModal.style.display = 'none';
+  loginModal.style.display = 'flex';
+});
+
+// Processar login
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert('Login successful');
+      loginModal.style.display = 'none';
+      // Implementar lógica após login, como redirecionar ou exibir dashboard
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+});
+
+// Processar cadastro
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      // Salvar informações adicionais do usuário, como username
+      db.collection('users').doc(user.uid).set({
+        username: document.getElementById('signup-username').value,
+        email: email
+      });
+      alert('Signup successful');
+      signupModal.style.display = 'none';
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+});
