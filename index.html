@@ -7,29 +7,27 @@
     <link rel="stylesheet" href="styles.css">
   
     <!-- Adicione o SDK do Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
 
-<script>
-  // Sua configuração do Firebase
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_DOMINIO",
-    projectId: "SEU_PROJECT_ID",
-    storageBucket: "SEU_STORAGE_BUCKET",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-    appId: "SEU_APP_ID",
-    measurementId: "SEU_MEASUREMENT_ID"
-  };
+    <script>
+        // Sua configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_DOMINIO",
+            projectId: "SEU_PROJECT_ID",
+            storageBucket: "SEU_STORAGE_BUCKET",
+            messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+            appId: "SEU_APP_ID",
+            measurementId: "SEU_MEASUREMENT_ID"
+        };
 
-  // Inicializa o Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-</script>
-
-  
+        // Inicializa o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
     <header>
@@ -38,12 +36,6 @@
         </div>
         <div class="profile-menu">
             <div id="user-circle" class="circle"></div>
-            <div id="user-dropdown" class="dropdown">
-                <label id="login-button">Login</label>
-                <label id="signup-button">Signup</label>
-                <label id="logout-button">Logout</label>
-                <input type="file" id="upload-photo">
-            </div>
             <!-- Botão de Modo Excluir -->
             <button id="delete-mode-button">Modo Excluir</button>
         </div>
@@ -58,36 +50,80 @@
         <div class="color-bubble" data-category="yellow" style="background-color: #f2ca50;"></div>
         <div class="color-bubble" data-category="purple" style="background-color: #378c4b;"></div>
     </div>
-    <!-- Login Modal -->
-<div id="login-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Login</h2>
-    <form id="login-form">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a id="go-to-signup">Sign up</a></p>
-  </div>
-</div>
 
-<!-- Signup Modal -->
-<div id="signup-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Sign Up</h2>
-    <form id="signup-form">
-      <input type="text" id="signup-username" placeholder="Username" required>
-      <input type="email" id="signup-email" placeholder="Email" required>
-      <input type="password" id="signup-password" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a id="go-to-login">Login</a></p>
-  </div>
-</div>
-</div>
+    <!-- Barrinha abaixo do menu de cores -->
+    <div id="expand-bar">
+        <div class="bar"></div>
     </div>
+
+    <!-- Pop-up que será exibido -->
+    <div id="popup" class="popup">
+        <span class="close-popup">&times;</span>
+        <div id="popup-content">
+            <!-- Barra lateral -->
+            <div class="sidebar">
+                <h2>Configurações</h2>
+                <div class="profile-section">
+                    <div id="user-circle" class="circle"></div>
+                    <div class="profile-options">
+                        <div class="option" id="login-button">
+                            <span class="icon">🔑</span>
+                            <span class="text">Login</span>
+                        </div>
+                        <div class="option" id="signup-button">
+                            <span class="icon">📝</span>
+                            <span class="text">Signup</span>
+                        </div>
+                        <div class="option" id="logout-button">
+                            <span class="icon">🚪</span>
+                            <span class="text">Logout</span>
+                        </div>
+                        <div class="option" id="upload-photo-button">
+                            <label for="upload-photo">
+                                <span class="icon">📷</span>
+                                <span class="text">Upload Photo</span>
+                            </label>
+                            <input type="file" id="upload-photo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Conteúdo principal -->
+            <div class="main-content">
+                <p>Área para conteúdo adicional.</p>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a id="go-to-signup">Sign up</a></p>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signup-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Sign Up</h2>
+                <form id="signup-form">
+                    <input type="text" id="signup-username" placeholder="Username" required>
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>Already have an account? <a id="go-to-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
