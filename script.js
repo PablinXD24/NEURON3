@@ -6,15 +6,18 @@ const signupModal = document.getElementById('signup-modal');
 const deleteModeButton = document.getElementById('delete-mode-button');
 const colorMenu = document.getElementById('color-menu');
 const colorBubbles = colorMenu.querySelectorAll('.color-bubble');
+const expandBar = document.getElementById('expand-bar');
+const popup = document.getElementById('popup');
+const closePopup = document.querySelector('.close-popup');
 
 let selectedNote = null;
-let notesByCategory = {}; // Armazena notas por categoria
+let notesByCategory = {};
 let connectors = [];
 let isDragging = false;
 let dragNote = null;
 let offsetX, offsetY;
 let deleteMode = false;
-let selectedCategory = 'green'; // Categoria inicial padrão
+let selectedCategory = 'green';
 
 // Toggle user dropdown
 userCircle.addEventListener('click', () => {
@@ -60,7 +63,7 @@ document.getElementById('upload-photo').addEventListener('change', (event) => {
 // Toggle delete mode
 deleteModeButton.addEventListener('click', () => {
     deleteMode = !deleteMode;
-    deleteModeButton.style.backgroundColor = deleteMode ? '#39ff14' : '#ff6347'; // Verde quando ligado, vermelho quando desligado
+    deleteModeButton.style.backgroundColor = deleteMode ? '#39ff14' : '#ff6347';
     deleteModeButton.textContent = deleteMode ? 'Modo Excluir: Ativo' : 'Modo Excluir';
 });
 
@@ -92,21 +95,16 @@ colorBubbles.forEach(bubble => {
 });
 
 function selectCategory(category) {
-    // Remove a seleção de todas as bolinhas
     colorBubbles.forEach(bubble => {
         bubble.classList.remove('selected');
-        bubble.style.boxShadow = 'none'; // Remove o efeito neon das bolinhas não selecionadas
+        bubble.style.boxShadow = 'none';
     });
 
-    // Seleciona a bolinha escolhida
     const selectedBubble = colorMenu.querySelector(`[data-category="${category}"]`);
     selectedBubble.classList.add('selected');
-    selectedBubble.style.boxShadow = `0 0 10px ${getCategoryColor(category)}`; // Aplica o efeito neon na bolinha selecionada
-
-    // Atualiza a variável global de categoria selecionada
+    selectedBubble.style.boxShadow = `0 0 10px ${getCategoryColor(category)}`;
     selectedCategory = category;
 
-    // Se há uma nota selecionada, atualiza sua cor
     if (selectedNote) {
         updateNoteColor(selectedNote, category);
     }
@@ -243,11 +241,9 @@ function updateNoteList() {
 }
 
 function checkAndConnectNotes() {
-    // Limpa todas as linhas de conexão existentes
     connectors.forEach(connector => connector.parentNode.removeChild(connector));
     connectors = [];
 
-    // Coleta todas as notas e agrupa por cor
     const notesByColor = {};
     const notes = Array.from(noteContainer.querySelectorAll('.note'));
 
@@ -259,7 +255,6 @@ function checkAndConnectNotes() {
         notesByColor[color].push(note);
     });
 
-    // Cria linhas de conexão para notas da mesma cor
     Object.keys(notesByColor).forEach(color => {
         const colorNotes = notesByColor[color];
         for (let i = 0; i < colorNotes.length - 1; i++) {
@@ -283,7 +278,7 @@ function checkAndConnectNotes() {
             line.style.left = `${x1}px`;
             line.style.top = `${y1}px`;
             line.style.transform = `rotate(${angle}deg)`;
-            line.style.transformOrigin = '0 0'; // Garante que a rotação ocorra a partir do início da linha
+            line.style.transformOrigin = '0 0';
 
             noteContainer.appendChild(line);
             connectors.push(line);
@@ -295,6 +290,7 @@ function checkAndConnectNotes() {
 setInterval(() => {
     checkAndConnectNotes();
 }, 1);
+
 // Referências aos formulários
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
@@ -303,50 +299,66 @@ const goToLogin = document.getElementById('go-to-login');
 
 // Troca entre login e signup
 goToSignup.addEventListener('click', () => {
-  loginModal.style.display = 'none';
-  signupModal.style.display = 'flex';
+    loginModal.style.display = 'none';
+    signupModal.style.display = 'flex';
 });
 
 goToLogin.addEventListener('click', () => {
-  signupModal.style.display = 'none';
-  loginModal.style.display = 'flex';
+    signupModal.style.display = 'none';
+    loginModal.style.display = 'flex';
 });
 
 // Processar login
 loginForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
-  auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      alert('Login successful');
-      loginModal.style.display = 'none';
-      // Implementar lógica após login, como redirecionar ou exibir dashboard
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            alert('Login successful');
+            loginModal.style.display = 'none';
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
 
 // Processar cadastro
 signupForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('signup-email').value;
-  const password = document.getElementById('signup-password').value;
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      // Salvar informações adicionais do usuário, como username
-      db.collection('users').doc(user.uid).set({
-        username: document.getElementById('signup-username').value,
-        email: email
-      });
-      alert('Signup successful');
-      signupModal.style.display = 'none';
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            db.collection('users').doc(user.uid).set({
+                username: document.getElementById('signup-username').value,
+                email: email
+            });
+            alert('Signup successful');
+            signupModal.style.display = 'none';
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
+// Abrir o pop-up ao clicar na barrinha
+expandBar.addEventListener('click', () => {
+    popup.style.display = 'block';
+});
+
+// Fechar o pop-up ao clicar no botão de fechar
+closePopup.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+// Fechar o pop-up ao clicar fora dele
+window.addEventListener('click', (event) => {
+    // Verifica se o clique foi fora do pop-up
+    if (popup.style.display === 'block' && !popup.contains(event.target) && !expandBar.contains(event.target)) {
+        popup.style.display = 'none';
+    }
 });
