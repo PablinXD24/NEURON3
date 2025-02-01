@@ -92,8 +92,6 @@ header {
     position: relative;
     background-color: #212534;
     cursor: pointer;
-    /* Remover a necessidade de ajustar a largura */
-    /* Não há necessidade de definir width explicitamente aqui */
 }
 
 .note {
@@ -159,16 +157,15 @@ header {
     position: absolute;
     height: 2px;
     z-index: 0;
-    transform-origin: 0 0; /* Important for correct rotation */
+    transform-origin: 0 0;
 }
 
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
@@ -181,6 +178,8 @@ header {
     border-radius: 10px;
     box-shadow: 0 0 15px #39ff14;
     position: relative;
+    width: 300px;
+    max-width: 90%;
 }
 
 .close {
@@ -229,8 +228,8 @@ header {
 
 .color-bubble:hover,
 .color-bubble.selected {
-    box-shadow: 0 0 10px 3px #fff; /* Efeito neon */
-    transform: scale(1.1); /* Leve aumento do tamanho para efeito de destaque */
+    box-shadow: 0 0 10px 3px #fff;
+    transform: scale(1.1);
 }
 
 .color-bubble[data-category="green"] {
@@ -253,37 +252,164 @@ header {
     background-color: #378c4b;
 }
 
-/* Media queries para dispositivos móveis */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px; /* Reduzir o tamanho da fonte para dispositivos móveis */
-    }
-
-    .logo img {
-        width: 80px; /* Reduzir o tamanho do logo */
-    }
-
-    .dropdown {
-        top: 60px; /* Ajustar posição do dropdown para dispositivos móveis */
-        width: 120px; /* Reduzir largura do dropdown */
-    }
-
-    .profile-menu {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Alinha os itens do menu no espaço disponível */
-    }
-
-    #delete-mode-button {
-        display: block; /* Assegura que o botão seja exibido */
-        margin-left: 10px; /* Espaçamento ao lado do menu de perfil */
-    }
+/* Estilo da barrinha */
+#expand-bar {
+    position: fixed;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 1000;
 }
+
+#expand-bar .bar {
+    width: 230px;
+    height: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+#expand-bar .bar:hover {
+    background-color: #32cc12;
+}
+
+/* Estilo do pop-up */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #212534;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #fff;
+    z-index: 1000;
+    width: calc(100% - 80px);
+    height: calc(100vh - 160px);
+    max-width: none;
+    padding: 20px;
+}
+
+.popup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.5em;
+}
+
+.popup #popup-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Estilo da barra lateral */
+.popup .sidebar {
+    width: 250px; /* Largura fixa da barra lateral */
+    background-color: #191c29;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup .sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.5em;
+}
+
+/* Estilo da seção do perfil */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-section .circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px #ffffff;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.profile-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-options .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.profile-options .option:hover {
+    background-color: #555;
+    transform: translateX(5px);
+}
+
+.profile-options .option .icon {
+    font-size: 1.2em;
+}
+
+.profile-options .option .text {
+    color: #fff;
+    font-size: 1em;
+}
+
+/* Estilo do input de upload de foto */
+#upload-photo {
+    display: none; /* Esconde o input de upload de foto */
+}
+
+/* Estilo do conteúdo principal */
+.popup .main-content {
+    flex: 1;
+    padding: 20px;
+    color: #fff;
+    background-color: #212534;
+    border-radius: 10px;
+    margin-left: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo dos modais */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* z-index maior que o do pop-up */
+    width: 100%;
+    height: 100%;
+}
+
 .modal-content {
-    background-color: #222;
+    background-color: #212534;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 15px #39ff14;
+    box-shadow: 0 0 15px #fff;
     position: relative;
     width: 300px;
     max-width: 90%;
@@ -292,6 +418,8 @@ header {
 .modal-content h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.5em;
 }
 
 .modal-content form {
@@ -306,27 +434,46 @@ header {
     border: 1px solid #555;
     background-color: #333;
     color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content form input:focus {
+    border-color: #39ff14;
+    box-shadow: 0 0 5px #39ff14;
+    outline: none;
+}
+
+.modal-content form input:hover {
+    border-color: #fff;
 }
 
 .modal-content form button {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #39ff14;
+    background-color: #fff;
     color: #000;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .modal-content form button:hover {
-    background-color: #32cc12;
+    background-color: #fff;
 }
 
 .modal-content p {
     text-align: center;
     margin-top: 10px;
+    color: #fff;
 }
 
 .modal-content p a {
     color: #39ff14;
     cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.modal-content p a:hover {
+    color: #32cc12;
 }
