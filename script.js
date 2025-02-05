@@ -9,6 +9,8 @@ const colorBubbles = colorMenu.querySelectorAll('.color-bubble');
 const expandBar = document.getElementById('expand-bar');
 const popup = document.getElementById('popup');
 const closePopup = document.querySelector('.close-popup');
+const interpretationModal = document.getElementById('interpretation-modal');
+const interpretationText = document.getElementById('interpretation-text');
 
 let selectedNote = null;
 let notesByCategory = {};
@@ -192,11 +194,24 @@ function createNoteAtPosition(x, y, category) {
         }
     });
 
-    textarea.addEventListener('blur', () => {
+    textarea.addEventListener('blur', async () => {
         deselectNote();
         updateNoteContent(note, textarea.value);
         updateNoteList();
         checkAndConnectNotes();
+
+        // Interpretar a nota
+        const interpretation = await interpretNote(textarea.value);
+        if (interpretation) {
+            // Adiciona a interpretação na nota, entre aspas
+            const sentiment = interpretation[0].label; // "POSITIVE" ou "NEGATIVE"
+            const confidence = interpretation[0].score; // Confiança (0 a 1)
+            const interpretationText = `"${sentiment} (${(confidence * 100).toFixed(2)}%)"`;
+
+            // Adiciona a interpretação ao conteúdo da nota
+            textarea.value = `${textarea.value}\n\n${interpretationText}`;
+            updateNoteContent(note, textarea.value);
+        }
     });
 
     textarea.addEventListener('input', () => {
@@ -362,3 +377,27 @@ window.addEventListener('click', (event) => {
         popup.style.display = 'none';
     }
 });
+
+// Função para interpretar a nota usando a API da Hugging Face
+async function interpretNote(content) {
+    const API_URL = "https://api-inference.huggingface.co/models/tabularisai/multilingual-sentiment-analysis"; // Seu endpoint
+    const API_TOKEN = "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"; // Seu token
+
+    try {
+        const response = await axios.post(
+            API_URL,
+            { inputs: content }, // Dados enviados para o modelo
+            {
+                headers: {
+                    Authorization: `Bearer ${API_TOKEN}`, // Autenticação com o token
+                },
+            }
+        );
+
+        // Retorna a interpretação (depende do modelo usado)
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao interpretar a nota:", error);
+        return null;
+    }
+}
