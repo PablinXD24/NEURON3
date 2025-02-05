@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Neuron App</title>
     <link rel="stylesheet" href="styles.css">
   
     <!-- Adicione o SDK do Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+
+    <!-- Adicione Axios para chamadas HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
         // Sua configuração do Firebase
@@ -121,6 +124,15 @@
                 </form>
                 <p>Already have an account? <a id="go-to-login">Login</a></p>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal de Interpretação -->
+    <div id="interpretation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Interpretação da Nota</h2>
+            <p id="interpretation-text"></p>
         </div>
     </div>
 
