@@ -219,7 +219,7 @@ header {
 #note-container {
     flex: 1;
     position: relative;
-    background-color: #212534; /* Cor de fundo do container de notas */
+    background-color: #fff; /* Cor de fundo do container de notas */
     cursor: pointer;
     z-index: 1; /* Garantir que fique acima de outros elementos */
 }
@@ -241,15 +241,52 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ffffff;
-    box-shadow: 0 0 15px #ffffff;
+    border: 3px solid #29FA10; /* Borda inicial (#29FA10) */
+    background-color: transparent; /* Fundo transparente */
+    box-shadow: 
+        0 0 10px rgba(41, 250, 16, 0.6), /* Brilho inicial (#29FA10) */
+        0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve abaixo do botão */
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s;
+    animation: borderColorChange 6s infinite; /* Animação de mudança de cor da borda */
 }
 
 #color-menu-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px #ffffff;
+}
+
+/* Animação de mudança de cor da borda e do brilho */
+@keyframes borderColorChange {
+    0% {
+        border-color: #29FA10; /* Verde (#29FA10) */
+        box-shadow: 
+            0 0 10px rgba(41, 250, 16, 0.6), /* Brilho verde */
+            0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
+    25% {
+        border-color: #37617A; /* Azul (#37617A) */
+        box-shadow: 
+            0 0 10px rgba(55, 97, 122, 0.6), /* Brilho azul */
+            0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
+    50% {
+        border-color: #f23839; /* Vermelho (#f23839) */
+        box-shadow: 
+            0 0 10px rgba(242, 56, 57, 0.6), /* Brilho vermelho */
+            0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
+    75% {
+        border-color: #f2ca50; /* Amarelo (#f2ca50) */
+        box-shadow: 
+            0 0 10px rgba(242, 202, 80, 0.6), /* Brilho amarelo */
+            0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
+    100% {
+        border-color: #378c4b; /* Verde escuro (#378c4b) */
+        box-shadow: 
+            0 0 10px rgba(55, 140, 75, 0.6), /* Brilho verde escuro */
+            0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
 }
 
 /* Menu de cores (inicialmente escondido) */
