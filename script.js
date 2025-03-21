@@ -4,6 +4,8 @@ const userDropdown = document.getElementById('user-dropdown');
 const loginModal = document.getElementById('login-modal');
 const signupModal = document.getElementById('signup-modal');
 const deleteModeButton = document.getElementById('delete-mode-button');
+const colorMenuContainer = document.getElementById('color-menu-container');
+const colorMenuToggle = document.getElementById('color-menu-toggle');
 const colorMenu = document.getElementById('color-menu');
 const colorBubbles = colorMenu.querySelectorAll('.color-bubble');
 const expandBar = document.getElementById('expand-bar');
@@ -107,6 +109,10 @@ function selectCategory(category) {
     selectedBubble.style.boxShadow = `0 0 10px ${getCategoryColor(category)}`;
     selectedCategory = category;
 
+    // Atualiza o título com o nome da categoria
+    const colorMenuTitle = document.getElementById('color-menu-title');
+    colorMenuTitle.textContent = getCategoryName(category);
+
     if (selectedNote) {
         updateNoteColor(selectedNote, category);
     }
@@ -126,6 +132,23 @@ function getCategoryColor(category) {
             return '#378c4b';
         default:
             return '#fff';
+    }
+}
+
+function getCategoryName(category) {
+    switch (category) {
+        case 'green':
+            return 'Social';
+        case 'blue':
+            return 'Trabalho';
+        case 'red':
+            return 'Saúde';
+        case 'yellow':
+            return 'Alimentação';
+        case 'purple':
+            return 'Estudos';
+        default:
+            return 'Categoria';
     }
 }
 
@@ -276,16 +299,21 @@ function checkAndConnectNotes() {
             const note1 = colorNotes[i];
             const note2 = colorNotes[i + 1];
 
+            // Obtém as coordenadas do centro de cada nota
             const rect1 = note1.getBoundingClientRect();
             const rect2 = note2.getBoundingClientRect();
-            const x1 = rect1.left + rect1.width / 2 - noteContainer.offsetLeft;
-            const y1 = rect1.top + rect1.height / 2 - noteContainer.offsetTop;
-            const x2 = rect2.left + rect2.width / 2 - noteContainer.offsetLeft;
-            const y2 = rect2.top + rect2.height / 2 - noteContainer.offsetTop;
 
+            // Calcula o centro de cada nota em relação ao container de notas
+            const x1 = rect1.left - noteContainer.getBoundingClientRect().left + rect1.width / 2;
+            const y1 = rect1.top - noteContainer.getBoundingClientRect().top + rect1.height / 2;
+            const x2 = rect2.left - noteContainer.getBoundingClientRect().left + rect2.width / 2;
+            const y2 = rect2.top - noteContainer.getBoundingClientRect().top + rect2.height / 2;
+
+            // Calcula o comprimento e o ângulo da linha
             const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
             const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 
+            // Cria a linha conectora
             const line = document.createElement('div');
             line.classList.add('connector');
             line.style.width = `${length}px`;
@@ -295,16 +323,17 @@ function checkAndConnectNotes() {
             line.style.transform = `rotate(${angle}deg)`;
             line.style.transformOrigin = '0 0';
 
+            // Adiciona a linha ao container de notas
             noteContainer.appendChild(line);
             connectors.push(line);
         }
     });
 }
 
-// Atualiza a posição das linhas a cada 500ms
+// Atualiza a posição das linhas a cada 100ms
 setInterval(() => {
     checkAndConnectNotes();
-}, 1);
+}, 100);
 
 // Referências aos formulários
 const loginForm = document.getElementById('login-form');
@@ -401,3 +430,8 @@ async function interpretNote(content) {
         return null;
     }
 }
+
+// Abrir/fechar o menu de cores
+colorMenuToggle.addEventListener('click', () => {
+    colorMenuContainer.classList.toggle('open');
+});
