@@ -435,3 +435,76 @@ async function interpretNote(content) {
 colorMenuToggle.addEventListener('click', () => {
     colorMenuContainer.classList.toggle('open');
 });
+// Variáveis para controlar o estado do menu
+let isMenuActive = false;
+let selectedColorOnHold = null;
+
+// Evento de clique e segurar na bolinha branca
+colorMenuToggle.addEventListener('mousedown', () => {
+    isMenuActive = true;
+    colorMenuContainer.classList.add('active');
+});
+
+// Evento de soltar o clique
+document.addEventListener('mouseup', () => {
+    if (isMenuActive) {
+        isMenuActive = false;
+        colorMenuContainer.classList.remove('active');
+
+        // Seleciona a cor se o usuário arrastou o mouse até uma bolinha
+        if (selectedColorOnHold) {
+            selectedCategory = selectedColorOnHold.dataset.category;
+            selectCategory(selectedCategory);
+            selectedColorOnHold = null;
+        }
+    }
+});
+
+// Evento de mover o mouse enquanto o menu está ativo
+document.addEventListener('mousemove', (e) => {
+    if (isMenuActive) {
+        // Verifica se o mouse está sobre uma bolinha de cor
+        colorBubbles.forEach(bubble => {
+            const rect = bubble.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distance = Math.sqrt((e.clientX - centerX) ** 2 + (e.clientY - centerY) ** 2);
+
+            // Se o mouse estiver próximo a uma bolinha, seleciona-a
+            if (distance < 30) { // Ajuste o raio de proximidade conforme necessário
+                selectedColorOnHold = bubble;
+                bubble.style.transform = 'scale(1.2)'; // Destaque a bolinha
+            } else {
+                bubble.style.transform = 'scale(1)'; // Volta ao tamanho normal
+            }
+        });
+    }
+});
+const filterMenu = document.getElementById('filter-menu');
+const notes = document.querySelectorAll('.note');
+
+// Função para aplicar o filtro
+function applyFilter(selectedColor) {
+    notes.forEach(note => {
+        if (note.dataset.category === selectedColor) {
+            note.classList.remove('blur'); // Remove o desfoque da cor selecionada
+        } else {
+            note.classList.add('blur'); // Aplica o desfoque nas outras cores
+        }
+    });
+}
+
+// Adiciona eventos aos botões do filtro
+filterMenu.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+        const selectedColor = button.dataset.color;
+        applyFilter(selectedColor);
+    });
+});
+
+// Função para remover o filtro (opcional)
+function resetFilter() {
+    notes.forEach(note => {
+        note.classList.remove('blur'); // Remove o desfoque de todas as bolinhas
+    });
+}
