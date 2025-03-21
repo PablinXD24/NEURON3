@@ -208,16 +208,66 @@ header {
     margin-left: 10px;
 }
 
-#color-menu {
+/* Garantir que o note-container ocupe o espaço correto */
+#app {
+    display: flex;
+    height: calc(100vh - 60px); /* Altura total menos o cabeçalho */
+    overflow: hidden;
+    position: relative; /* Para garantir que o z-index funcione corretamente */
+}
+
+#note-container {
+    flex: 1;
+    position: relative;
+    background-color: #212534; /* Cor de fundo do container de notas */
+    cursor: pointer;
+    z-index: 1; /* Garantir que fique acima de outros elementos */
+}
+
+/* Container do menu de cores */
+#color-menu-container {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
+    align-items: center;
     gap: 10px;
     z-index: 1000;
 }
 
+/* Bolinha branca brilhante (toggle) */
+#color-menu-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#color-menu-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ffffff;
+}
+
+/* Menu de cores (inicialmente escondido) */
+#color-menu {
+    display: none;
+    gap: 10px;
+    background-color: #191c29;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Quando o menu estiver aberto */
+#color-menu-container.open #color-menu {
+    display: flex;
+}
+
+/* Estilo das bolinhas de cor */
 .color-bubble {
     width: 40px;
     height: 40px;
@@ -252,19 +302,23 @@ header {
     background-color: #378c4b;
 }
 
-/* Estilo da barrinha */
+/* Estilo da barrinha transformada em aba flutuante */
 #expand-bar {
     position: fixed;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
     z-index: 1000;
+    background-color: #191c29;
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #expand-bar .bar {
-    width: 230px;
-    height: 5px;
+    width: 5px;
+    height: 50px;
     background-color: #fff;
     border-radius: 10px;
     transition: background-color 0.3s;
@@ -476,4 +530,22 @@ header {
 
 .modal-content p a:hover {
     color: #32cc12;
+}
+/* Título do menu de cores */
+#color-menu-title {
+    position: absolute;
+    top: -30px; /* Posiciona acima do container */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.3s;
+}
+
+/* Quando o menu estiver aberto e uma bolinha for selecionada */
+#color-menu-container.open #color-menu-title {
+    opacity: 1; /* Torna o título visível */
 }
