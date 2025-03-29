@@ -586,3 +586,39 @@ header {
 #color-menu-container.open #color-menu-title {
     opacity: 1; /* Torna o título visível */
 }
+/* Mantenha todos os estilos anteriores e adicione: */
+
+#google-login-button {
+  background-color: #4285F4;
+  color: white;
+}
+
+#google-login-button:hover {
+  background-color: #3367D6;
+}
+
+#google-login-button .icon {
+  font-weight: bold;
+}
+
+#user-info {
+  padding: 20px;
+  background-color: #191c29;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.user-details {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #2a2e42;
+  border-radius: 5px;
+}
+
+.user-details p {
+  margin: 5px 0;
+}
+
+.user-details strong {
+  color: #39ff14;
+}
