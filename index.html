@@ -6,30 +6,32 @@
     <title>Neuron App</title>
     <link rel="stylesheet" href="styles.css">
   
-    <!-- Adicione o SDK do Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
 
-    <!-- Adicione Axios para chamadas HTTP -->
+    <!-- Axios para chamadas HTTP -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        // Sua configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "SUA_API_KEY",
-            authDomain: "SEU_DOMINIO",
-            projectId: "SEU_PROJECT_ID",
-            storageBucket: "SEU_STORAGE_BUCKET",
-            messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-            appId: "SEU_APP_ID",
-            measurementId: "SEU_MEASUREMENT_ID"
-        };
+        // Configuração do Firebase
+         const firebaseConfig = {
+    apiKey: "AIzaSyBntG_C8OkT4hBPn0WvUPm1HkPRNvq8lq8",
+    authDomain: "neuron-app-fe392.firebaseapp.com",
+    projectId: "neuron-app-fe392",
+    storageBucket: "neuron-app-fe392.firebasestorage.app",
+    messagingSenderId: "932071441779",
+    appId: "1:932071441779:web:ac0694da7944b246c67106"
+  };
 
         // Inicializa o Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
+        
+        // Configurar provedor do Google
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
     </script>
 </head>
 <body>
@@ -44,24 +46,22 @@
         </div>
     </header>
   
-  
-  
     <div id="app">
         <main id="note-container"></main>
     </div>
 
     <!-- Container retrátil do menu de cores -->
-<div id="color-menu-container">
-    <div id="color-menu-title" class="color-menu-title"></div> <!-- Título dinâmico -->
-    <div id="color-menu-toggle" class="color-menu-toggle"></div>
-    <div id="color-menu" class="color-menu">
-        <div class="color-bubble" data-category="green" style="background-color: #29FA10;"></div>
-        <div class="color-bubble" data-category="blue" style="background-color: #37617A;"></div>
-        <div class="color-bubble" data-category="red" style="background-color: #f23839;"></div>
-        <div class="color-bubble" data-category="yellow" style="background-color: #f2ca50;"></div>
-        <div class="color-bubble" data-category="purple" style="background-color: #378c4b;"></div>
+    <div id="color-menu-container">
+        <div id="color-menu-title" class="color-menu-title"></div>
+        <div id="color-menu-toggle" class="color-menu-toggle"></div>
+        <div id="color-menu" class="color-menu">
+            <div class="color-bubble" data-category="green" style="background-color: #29FA10;"></div>
+            <div class="color-bubble" data-category="blue" style="background-color: #37617A;"></div>
+            <div class="color-bubble" data-category="red" style="background-color: #f23839;"></div>
+            <div class="color-bubble" data-category="yellow" style="background-color: #f2ca50;"></div>
+            <div class="color-bubble" data-category="purple" style="background-color: #378c4b;"></div>
+        </div>
     </div>
-</div>
 
     <!-- Barrinha abaixo do menu de cores -->
     <div id="expand-bar">
@@ -86,6 +86,10 @@
                             <span class="icon">📝</span>
                             <span class="text">Signup</span>
                         </div>
+                        <div class="option" id="google-login-button">
+                            <span class="icon">G</span>
+                            <span class="text">Login com Google</span>
+                        </div>
                         <div class="option" id="logout-button">
                             <span class="icon">🚪</span>
                             <span class="text">Logout</span>
@@ -102,7 +106,7 @@
             </div>
             <!-- Conteúdo principal -->
             <div class="main-content">
-                <p>Área para conteúdo adicional.</p>
+                <p id="user-info">Faça login para ver suas informações</p>
             </div>
         </div>
 
