@@ -1,3 +1,38 @@
+// Mostrar tela de planos inicialmente
+document.addEventListener('DOMContentLoaded', () => {
+    // Esconder a interface principal inicialmente
+    document.querySelector('header').style.display = 'none';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('color-menu-container').style.display = 'none';
+    document.getElementById('expand-bar').style.display = 'none';
+    
+    // Configurar evento para o plano ENIAC
+    document.getElementById('eniac-plan-btn').addEventListener('click', () => {
+        // Esconder tela de planos
+        document.getElementById('plans-screen').style.display = 'none';
+        
+        // Mostrar interface principal
+        document.querySelector('header').style.display = 'flex';
+        document.getElementById('app').style.display = 'flex';
+        document.getElementById('color-menu-container').style.display = 'flex';
+        document.getElementById('expand-bar').style.display = 'flex';
+        
+        // Mostrar modal de login automaticamente
+        loginModal.style.display = 'flex';
+        
+        // Fechar outros modais que possam estar abertos
+        signupModal.style.display = 'none';
+        popup.style.display = 'none';
+    });
+    
+    // Configurar eventos para os outros planos (mostrar mensagem)
+    document.querySelectorAll('.plan-card:not(.eniac) .select-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Este plano não está disponível no momento. Por favor, selecione o plano ENIAC STUDANT.');
+        });
+    });
+});
+
 // Elementos da DOM
 const noteContainer = document.getElementById('note-container');
 const userCircle = document.getElementById('user-circle');
@@ -18,6 +53,8 @@ const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const goToSignup = document.getElementById('go-to-signup');
 const goToLogin = document.getElementById('go-to-login');
+const googleLoginModalButton = document.getElementById('google-login-modal-button');
+const googleSignupModalButton = document.getElementById('google-signup-modal-button');
 
 // Variáveis de estado
 let selectedNote = null;
@@ -126,7 +163,6 @@ function updateUserProfile() {
     // Atualiza opções de perfil
     document.getElementById('login-button').style.display = 'none';
     document.getElementById('signup-button').style.display = 'none';
-    document.getElementById('google-login-button').style.display = 'none';
     document.getElementById('logout-button').style.display = 'flex';
     document.getElementById('upload-photo-button').style.display = 'flex';
 
@@ -151,7 +187,6 @@ function updateUserProfile() {
     
     document.getElementById('login-button').style.display = 'flex';
     document.getElementById('signup-button').style.display = 'flex';
-    document.getElementById('google-login-button').style.display = 'flex';
     document.getElementById('logout-button').style.display = 'none';
     document.getElementById('upload-photo-button').style.display = 'none';
 
@@ -165,6 +200,7 @@ function updateUserProfile() {
 function closeAllModals() {
   loginModal.style.display = 'none';
   signupModal.style.display = 'none';
+  popup.style.display = 'none';
 }
 
 // ====================== FUNÇÕES DE NOTAS ====================== //
@@ -470,6 +506,8 @@ async function interpretNote(content) {
 
 // Autenticação
 document.getElementById('google-login-button').addEventListener('click', signInWithGoogle);
+googleLoginModalButton.addEventListener('click', signInWithGoogle);
+googleSignupModalButton.addEventListener('click', signInWithGoogle);
 document.getElementById('logout-button').addEventListener('click', signOut);
 
 loginForm.addEventListener('submit', (e) => {
