@@ -1,3 +1,157 @@
+/* Tela de seleção de planos */
+#plans-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #191c29;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: white;
+}
+
+.plans-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.plan-card {
+    background-color: #212534;
+    border-radius: 15px;
+    padding: 30px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.plan-card.eniac {
+    border: 3px solid #29FA10;
+    box-shadow: 0 0 20px rgba(41, 250, 16, 0.5);
+}
+
+.plan-card h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #29FA10;
+}
+
+.plan-card.eniac h3 {
+    color: #29FA10;
+}
+
+.plan-card .price {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plan-card .features {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.plan-card .features li {
+    margin-bottom: 10px;
+    list-style-type: none;
+    position: relative;
+    padding-left: 25px;
+}
+
+.plan-card .features li:before {
+    content: "✓";
+    color: #29FA10;
+    position: absolute;
+    left: 0;
+}
+
+.plan-card .select-btn {
+    background-color: #29FA10;
+    color: #191c29;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.plan-card .select-btn:hover {
+    background-color: #1fd00a;
+}
+
+.plans-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.plans-subtitle {
+    font-size: 18px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #aaa;
+}
+
+/* Esconder elementos inicialmente */
+header, #app, #color-menu-container, #expand-bar {
+    display: none;
+}
+
+/* Estilo para o botão do Google nos modais */
+.google-login-container {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.google-login-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.google-login-button:hover {
+    background-color: #3367D6;
+}
+
+.google-icon {
+    font-weight: bold;
+    margin-right: 10px;
+    background-color: white;
+    color: #4285F4;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-text {
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Restante do CSS existente... */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
