@@ -8,22 +8,22 @@
   
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
 
     <!-- Axios para chamadas HTTP -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
         // Configuração do Firebase
-         const firebaseConfig = {
-    apiKey: "AIzaSyBntG_C8OkT4hBPn0WvUPm1HkPRNvq8lq8",
-    authDomain: "neuron-app-fe392.firebaseapp.com",
-    projectId: "neuron-app-fe392",
-    storageBucket: "neuron-app-fe392.firebasestorage.app",
-    messagingSenderId: "932071441779",
-    appId: "1:932071441779:web:ac0694da7944b246c67106"
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBntG_C8OkT4hBPn0WvUPm1HkPRNvq8lq8",
+            authDomain: "neuron-app-fe392.firebaseapp.com",
+            projectId: "neuron-app-fe392",
+            storageBucket: "neuron-app-fe392.firebasestorage.app",
+            messagingSenderId: "932071441779",
+            appId: "1:932071441779:web:ac0694da7944b246c67106"
+        };
 
         // Inicializa o Firebase
         const app = firebase.initializeApp(firebaseConfig);
@@ -35,6 +35,53 @@
     </script>
 </head>
 <body>
+    <!-- Tela de seleção de planos -->
+    <div id="plans-screen">
+        <h1 class="plans-title">Escolha seu Plano</h1>
+        <p class="plans-subtitle">Selecione o plano que melhor atende suas necessidades</p>
+        
+        <div class="plans-container">
+            <div class="plan-card">
+                <h3>BÁSICO</h3>
+                <div class="price">R$ 20/mês</div>
+                <ul class="features">
+                    <li>5 notas por dia</li>
+                    <li>Cores limitadas</li>
+                    <li>Sem análise de sentimentos</li>
+                    <li>Sem backup na nuvem</li>
+                </ul>
+                <button class="select-btn">Selecionar</button>
+            </div>
+            
+            <div class="plan-card eniac">
+                <h3>ENIAC STUDANT</h3>
+                <div class="price">GRATUITO*</div>
+                <ul class="features">
+                    <li>Notas ilimitadas</li>
+                    <li>Todas as cores disponíveis</li>
+                    <li>Análise de sentimentos</li>
+                    <li>Backup na nuvem</li>
+                    <li>Prioridade no suporte</li>
+                </ul>
+                <button class="select-btn" id="eniac-plan-btn">Selecionar</button>
+            </div>
+            
+            <div class="plan-card">
+                <h3>PREMIUM</h3>
+                <div class="price">R$ 50/mês</div>
+                <ul class="features">
+                    <li>Notas ilimitadas</li>
+                    <li>Todas as cores disponíveis</li>
+                    <li>Análise de sentimentos</li>
+                    <li>Backup na nuvem</li>
+                    <li>Exportação de dados</li>
+                </ul>
+                <button class="select-btn">Selecionar</button>
+            </div>
+        </div>
+        <p style="margin-top: 30px; color: #777;">*Disponível exclusivamente para alunos ENIAC</p>
+    </div>
+
     <header>
         <div class="logo">
             <img src="https://raw.githubusercontent.com/PablinXD24/NEURON3/main/neuron%20logo%20branco.png" alt="Logo">
@@ -109,34 +156,46 @@
                 <p id="user-info">Faça login para ver suas informações</p>
             </div>
         </div>
+    </div>
 
-        <!-- Login Modal -->
-        <div id="login-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Login</h2>
-                <form id="login-form">
-                    <input type="email" id="login-email" placeholder="Email" required>
-                    <input type="password" id="login-password" placeholder="Password" required>
-                    <button type="submit">Login</button>
-                </form>
-                <p>Don't have an account? <a id="go-to-signup">Sign up</a></p>
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div class="google-login-container">
+                <button id="google-login-modal-button" class="google-login-button">
+                    <span class="google-icon">G</span>
+                    <span class="google-text">Login com Google</span>
+                </button>
             </div>
+            <p>Don't have an account? <a id="go-to-signup">Sign up</a></p>
         </div>
+    </div>
 
-        <!-- Signup Modal -->
-        <div id="signup-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Sign Up</h2>
-                <form id="signup-form">
-                    <input type="text" id="signup-username" placeholder="Username" required>
-                    <input type="email" id="signup-email" placeholder="Email" required>
-                    <input type="password" id="signup-password" placeholder="Password" required>
-                    <button type="submit">Sign Up</button>
-                </form>
-                <p>Already have an account? <a id="go-to-login">Login</a></p>
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-username" placeholder="Username" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="google-login-container">
+                <button id="google-signup-modal-button" class="google-login-button">
+                    <span class="google-icon">G</span>
+                    <span class="google-text">Login com Google</span>
+                </button>
             </div>
+            <p>Already have an account? <a id="go-to-login">Login</a></p>
         </div>
     </div>
 
